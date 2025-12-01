@@ -9,7 +9,7 @@ export class Task {
      id: string,
      title: string,
      description: string,
-     statusTask: number
+     statusTask: number = 0
   ) {
 
     this.id = id;
