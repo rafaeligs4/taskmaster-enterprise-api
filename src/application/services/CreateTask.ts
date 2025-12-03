@@ -6,6 +6,11 @@ export class CreateTask {
     }
 
     async excecute(title: string, description: string): Promise<Task>{
+        // Validación simple: el título es obligatorio
+        if (!title || title.trim() === '') {
+            throw new Error('Title is required');
+        }
+
         const task = new Task(Date.now().toString(), title, description);
 
         await this.taskRepository.save(task);
