@@ -3,7 +3,7 @@ import { CreateTask } from "../../../application/services/CreateTask";
 import { ITaskRepository } from "../../../domain/interfaces/ITaskRepository";
 
 export class CreateTaskController {
-  constructor(private taskRepo: ITaskRepository) {}
+  constructor(private serviceCreateTask: CreateTask) { }
 
   // Usar arrow function para preservar `this`
   public createTask = async (req: Request, res: Response) => {
@@ -17,9 +17,7 @@ export class CreateTaskController {
     }
 
     try {
-      const service = new CreateTask(this.taskRepo);
-      // Ajusta el nombre del método si tu servicio usa "execute" o "excecute"
-      const task = await (service as any).excecute?.(body.title, body.description) ?? await (service as any).execute(body.title, body.description);
+      const task = await this.serviceCreateTask.execute(body.title, body.description);
       return res.status(201).json(task);
     } catch (err: any) {
       console.error(err);

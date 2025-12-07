@@ -5,13 +5,12 @@ import { GetAllTask } from "../../../application/services/GetAllTask";
 import { ITaskRepository } from "../../../domain/interfaces/ITaskRepository";
 
 export class GetAllTaskController {
-    constructor( private readonly taskRepository: ITaskRepository){}
+    constructor(private readonly serviceAllTask: GetAllTask) { }
 
 
-    public async getAllTask(request: Request, response: Response){
-        const getAllTaskClass = new GetAllTask(this.taskRepository);
-        const allTask: Task[] = await getAllTaskClass.execute();
-        if(allTask.length < 1)  response.status(400);
+    public async getAllTask(request: Request, response: Response) {
+        const allTask: Task[] = await this.serviceAllTask.execute();
+        if (allTask.length < 1) response.status(400);
         response.send(allTask).status(201);
     }
 }

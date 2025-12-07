@@ -1,6 +1,7 @@
 import * as routerCreate from "./infrastructure/http/routers/createTask.router";
 import * as routerGetAll from "./infrastructure/http/routers/getAllTasks.router";
 import * as routerFindId from "./infrastructure/http/routers/findTask.router";
+import * as routerUpdate from "./infrastructure/http/routers/updateTask.router";
 import express, { Express, Request, Response } from 'express';
 
 // Inicializa la aplicación Express
@@ -12,8 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Montar routers (debe ir después de los parsers)
 app.use('/', routerCreate.router);
-app.use('/getAll',routerGetAll.router);
-app.use('/',routerFindId.router);
+app.use('/getAll', routerGetAll.router);
+app.use('/', routerFindId.router);
+app.use('/', routerUpdate.router);
 // Define el puerto en el que el servidor escuchará
 // Se recomienda usar una variable de entorno para el puerto
 const port: number | string = process.env.PORT || 3000;
