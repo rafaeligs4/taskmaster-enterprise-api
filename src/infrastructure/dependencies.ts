@@ -1,5 +1,6 @@
 import { TaskRepositoryInMemory } from "./database/InmemoryTaskRepository";
 import { CreateTaskController } from './http/controllers/createTask.controller';
+import { FindTaskController } from "./http/controllers/findTask.controller";
 import { GetAllTaskController } from "./http/controllers/getAllTask.controller";
 
 /**
@@ -11,3 +12,4 @@ const taskRepository = new TaskRepositoryInMemory();
 
 export const createTController = new CreateTaskController(taskRepository);
 export const getAllCont = new GetAllTaskController(taskRepository);
+export const findByIdController = new FindTaskController(taskRepository);

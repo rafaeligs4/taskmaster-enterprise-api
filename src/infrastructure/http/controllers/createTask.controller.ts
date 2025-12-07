@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { CreateTask } from "../../../application/services/CreateTask";
+import { ITaskRepository } from "../../../domain/interfaces/ITaskRepository";
 
 export class CreateTaskController {
-  constructor(private taskRepo: any) {}
+  constructor(private taskRepo: ITaskRepository) {}
 
   // Usar arrow function para preservar `this`
   public createTask = async (req: Request, res: Response) => {
