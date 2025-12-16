@@ -1,3 +1,4 @@
+import "dotenv/config";
 import * as routerCreate from "./infrastructure/http/routers/createTask.router";
 import * as routerGetAll from "./infrastructure/http/routers/getAllTasks.router";
 import * as routerFindId from "./infrastructure/http/routers/findTask.router";

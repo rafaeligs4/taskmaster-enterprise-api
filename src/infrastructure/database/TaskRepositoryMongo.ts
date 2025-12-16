@@ -30,7 +30,7 @@ export class TaskRepositoryMongo implements ITaskRepository, IUpdateTaskReposito
 
     public async findById(id: string): Promise<Task | null> {
         try {
-            const taskDoc = await TaskModel.findById(id);
+            const taskDoc = await TaskModel.findById(id).lean();
             if (!taskDoc) return null;
 
             // Mapeamos de vuelta del Documento de Mongo a tu Entidad de Dominio
@@ -48,7 +48,7 @@ export class TaskRepositoryMongo implements ITaskRepository, IUpdateTaskReposito
 
     public async findAll(): Promise<Task[]> {
         try {
-            const taskDocs = await TaskModel.find();
+            const taskDocs = await TaskModel.find().lean();
             console.log(taskDocs, "Task Docs");
             return taskDocs.map(doc => new Task(
                 doc._id as string,
