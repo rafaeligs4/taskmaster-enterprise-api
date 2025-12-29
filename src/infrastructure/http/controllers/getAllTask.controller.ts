@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { TaskRepositoryInMemory } from "../../database/InmemoryTaskRepository";
 import { Task } from "../../../domain/entities/Task";
-import { GetAllTask } from "../../../application/services/GetAllTask";
+import { GetAllTask } from "../../../application/services/Tasks/GetAllTask";
 import { ITaskRepository } from "../../../domain/interfaces/ITaskRepository";
 
 export class GetAllTaskController {
