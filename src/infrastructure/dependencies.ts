@@ -1,8 +1,10 @@
 import { BcryptPasswordHasher } from "../application/services/HashPasswors";
+import { JwtTokenProvider } from "../application/services/JWTProvider";
 import { CreateTask } from "../application/services/Tasks/CreateTask";
 import { FindTask } from "../application/services/Tasks/FindTask";
 import { GetAllTask } from "../application/services/Tasks/GetAllTask";
 import { UpdateStatusTask } from "../application/services/Tasks/UpdateStatusTask";
+import { LoginUser } from "../application/services/Users/LoginUser";
 import { RegisterUser } from "../application/services/Users/RegisterUser";
 import { TaskRepositoryInMemory } from "./database/InmemoryTaskRepository";
 import { UserRepositoryMongo } from "./database/models/UserRepositoryMongo";
@@ -11,6 +13,7 @@ import { TaskRepositoryMongo } from "./database/TaskRepositoryMongo";
 import { CreateTaskController } from './http/controllers/createTask.controller';
 import { FindTaskController } from "./http/controllers/findTask.controller";
 import { GetAllTaskController } from "./http/controllers/getAllTask.controller";
+import { LoginUserController } from "./http/controllers/LoginUser.controller";
 import { RegisterUserController } from "./http/controllers/registerUser.controller";
 import { UpdateTaskController } from "./http/controllers/updateTask.controller";
 
@@ -26,6 +29,7 @@ connectionMongo.connect();
 const taskRepository = new TaskRepositoryMongo();
 const userRepository = new UserRepositoryMongo();
 const passwordHasher = new BcryptPasswordHasher();
+const jwtProvider = new JwtTokenProvider();
 //
 // const taskRepository = new TaskRepositoryInMemory();
 /*
@@ -37,6 +41,7 @@ const getAllTask = new GetAllTask(taskRepository);
 const findTaskById = new FindTask(taskRepository);
 const updateTask = new UpdateStatusTask(taskRepository);
 const registerUser = new RegisterUser(userRepository, passwordHasher);
+const loginUser = new LoginUser(userRepository, passwordHasher, jwtProvider);
 /*
 CONTROLADORES 
 */
@@ -45,3 +50,4 @@ export const getAllCont = new GetAllTaskController(getAllTask);
 export const findByIdController = new FindTaskController(findTaskById);
 export const updateTaskCont = new UpdateTaskController(updateTask);
 export const registerUserCont = new RegisterUserController(registerUser);
+export const loginUserCont = new LoginUserController(loginUser);
