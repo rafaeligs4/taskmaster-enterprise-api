@@ -1,16 +1,16 @@
 import { User } from "../../domain/entities/User";
 import { IUserRepository } from "../../domain/interfaces/IUserRepository";
 
-export class CreateUser {
+export class FindUserById {
     constructor(private readonly userRepository: IUserRepository) { }
 
-    async execute(user: User): Promise<any | null> {
+    async execute(id: string): Promise<User | null> {
         try {
-            await this.userRepository.save(user);
-            return { title: "Guardado correcto" }
+            const response = await this.userRepository.findById(id);
+            return response;
         } catch (error) {
             console.log(error);
-            return error;
+            return null;
         }
     }
 }
