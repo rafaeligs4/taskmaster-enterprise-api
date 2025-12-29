@@ -16,7 +16,7 @@ export class RegisterUserController {
         }
         try {
             const user = await this.registerUserService.execute(email, password, name);
-            return response.status(201).json(user);
+            return response.status(201).json({ email: user.email, name: user.name, password: user.password });
         } catch (error) {
             console.error(error);
             return response.status(500).json({ error: "Error al registrar el usuario" });

@@ -11,10 +11,14 @@ export class RegisterUser {
     ) { }
 
     async execute(email: string, password: string, name: string) {
+        const userExists = await this.userRepository.findByEmail(email);
+        if (userExists) {
+            throw new Error("User already exists");
+        }
         const newId = new Date().getTime().toString();
         const hashedPassword = await this.passwordHasher.hash(password);
         const newUser = new User(newId, name, email, hashedPassword);
-        this.userRepository.save(newUser);
+        await this.userRepository.save(newUser);
         return newUser;
     }
 }

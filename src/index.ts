@@ -21,7 +21,7 @@ app.use('/task/getAll', routerGetAll.router);
 app.use('/task', routerFindId.router);
 app.use('/task', routerUpdate.router);
 /** Users */
-app.use('./users/create', routerCreateUser.router);
+app.use('/users/create', routerCreateUser.router);
 
 // Define el puerto en el que el servidor escuchará
 // Se recomienda usar una variable de entorno para el puerto
