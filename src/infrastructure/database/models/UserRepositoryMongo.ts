@@ -1,43 +1,18 @@
 import { User } from "../../../domain/entities/User";
-import { compare, hash } from 'bcrypt';
 import { UserModel } from "../../../domain/entities/UserMongo";
-import { IPasswordHasher } from "../../../domain/interfaces/IHashPassword";
 import { IUserRepository } from "../../../domain/interfaces/IUserRepository";
 
 
-export class UserRepositoryMongo implements IUserRepository, IPasswordHasher {
+export class UserRepositoryMongo implements IUserRepository {
     constructor() { }
 
-    hash(plain: string): Promise<string> {
-        return new Promise((resolve, reject) => {
-            hash(plain, 10, (err: Error | undefined, hash: string) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(hash);
-                }
-            });
-        });
-    }
-    compare(plain: string, hashed: string): Promise<boolean> {
-        return new Promise((resolve, reject) => {
-            compare(plain, hashed, (err: Error | undefined, result: boolean) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
-            })
-        })
-    }
     async save(user: User): Promise<void> {
         try {
-            const hashedPassword = await this.hash(user.password);
             const newUser = new UserModel({
                 id: user.id,
                 name: user.name,
                 email: user.email,
-                password: hashedPassword
+                password: user.password
             });
             await newUser.save();
 
