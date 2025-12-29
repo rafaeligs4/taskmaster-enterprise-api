@@ -1,8 +1,8 @@
 
 import jwt from 'jsonwebtoken';
-import { IJWTProvider } from '../../domain/interfaces/IJWTProvider';
+import { IJWTSigner, IJWTValidator } from '../../domain/interfaces/IJWTProvider';
 
-export class JwtTokenProvider implements IJWTProvider {
+export class JwtTokenProvider implements IJWTSigner, IJWTValidator {
     private readonly SECRET_KEY = process.env.MONGO_URI || "secreto_super_secreto_taskmaster";
 
     generateToken(payload: object): string {
@@ -17,4 +17,4 @@ export class JwtTokenProvider implements IJWTProvider {
             return null; // Token inválido o expirado
         }
     }
-}
+} 

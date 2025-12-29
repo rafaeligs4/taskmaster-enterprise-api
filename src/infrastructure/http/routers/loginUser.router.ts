@@ -3,4 +3,4 @@ import { loginUserCont } from "../../dependencies";
 
 export const router = Router();
 
-router.post('/login', loginUserCont.login.bind(loginUserCont.login));
+router.post('/', loginUserCont.login.bind(loginUserCont.login));

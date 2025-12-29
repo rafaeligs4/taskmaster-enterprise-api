@@ -1,5 +1,5 @@
 import { IPasswordHasher } from "../../../domain/interfaces/IHashPassword";
-import { IJWTProvider } from "../../../domain/interfaces/IJWTProvider";
+import { IJWTSigner } from "../../../domain/interfaces/IJWTProvider";
 import { IUserRepository } from "../../../domain/interfaces/IUserRepository";
 
 
@@ -7,7 +7,7 @@ export class LoginUser {
     constructor(
         private readonly userRepository: IUserRepository,
         private readonly passwordHasher: IPasswordHasher,
-        private readonly jwtProvider: IJWTProvider
+        private readonly jwtProvider: IJWTSigner
     ) { }
 
     async execute(email: string, password: string) {
