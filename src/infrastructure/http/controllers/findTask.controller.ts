@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ITaskRepository } from "../../../domain/interfaces/ITaskRepository";
-import { FindTask } from "../../../application/services/FindTask";
+import { FindTask } from "../../../application/services/Tasks/FindTask";
 
 
 export class FindTaskController {

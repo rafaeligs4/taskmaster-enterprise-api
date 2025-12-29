@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UpdateStatusTask } from "../../../application/services/UpdateStatusTask";
+import { UpdateStatusTask } from "../../../application/services/Tasks/UpdateStatusTask";
 
 export class UpdateTaskController {
 

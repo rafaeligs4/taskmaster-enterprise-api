@@ -1,5 +1,5 @@
-import { Task } from "../../domain/entities/Task";
-import { ITaskRepository } from "../../domain/interfaces/ITaskRepository";
+import { Task } from "../../../domain/entities/Task";
+import { ITaskRepository } from "../../../domain/interfaces/ITaskRepository";
 
 export class CreateTask {
     constructor(private taskRepository: ITaskRepository) {

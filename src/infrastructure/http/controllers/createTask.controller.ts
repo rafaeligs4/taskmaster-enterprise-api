@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateTask } from "../../../application/services/CreateTask";
+import { CreateTask } from "../../../application/services/Tasks/CreateTask";
 import { ITaskRepository } from "../../../domain/interfaces/ITaskRepository";
 
 export class CreateTaskController {

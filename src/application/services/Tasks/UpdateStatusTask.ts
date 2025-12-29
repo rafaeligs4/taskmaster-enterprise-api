@@ -1,4 +1,4 @@
-import { IUpdateTaskRepository } from "../../domain/interfaces/UpdateTaskRepository";
+import { IUpdateTaskRepository } from "../../../domain/interfaces/UpdateTaskRepository";
 
 
 export class UpdateStatusTask {
