@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { findByIdController } from "../../dependencies";
+import { authMiddleware, findByIdController } from "../../dependencies";
 
 
 export const router = Router();
 
-router.get('/findById/:id',findByIdController.findTask.bind(findByIdController));
+router.get('/findById/:id', authMiddleware.handle, findByIdController.findTask.bind(findByIdController));

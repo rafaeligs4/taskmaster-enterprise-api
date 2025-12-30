@@ -16,6 +16,7 @@ import { GetAllTaskController } from "./http/controllers/getAllTask.controller";
 import { LoginUserController } from "./http/controllers/LoginUser.controller";
 import { RegisterUserController } from "./http/controllers/registerUser.controller";
 import { UpdateTaskController } from "./http/controllers/updateTask.controller";
+import { AuthMiddleware } from "./http/middlewares/AuthMiddleware";
 
 /**
  * DEPENDENCIES
@@ -32,6 +33,12 @@ const passwordHasher = new BcryptPasswordHasher();
 const jwtProvider = new JwtTokenProvider();
 //
 // const taskRepository = new TaskRepositoryInMemory();
+/*
+MIDLEWARES
+*/
+export const authMiddleware = new AuthMiddleware(jwtProvider);
+
+
 /*
 SERVICIOS 
 */

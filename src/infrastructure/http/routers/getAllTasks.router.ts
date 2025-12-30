@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { getAllCont } from "../../dependencies";
+import { authMiddleware, getAllCont } from "../../dependencies";
 
 
 export const router = Router();
 
-router.get('/',getAllCont.getAllTask.bind(getAllCont))
+router.get('/', authMiddleware.handle, getAllCont.getAllTask.bind(getAllCont))
