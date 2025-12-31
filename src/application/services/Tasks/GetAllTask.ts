@@ -7,9 +7,9 @@ export class GetAllTask {
 
     }
 
-    async execute(): Promise<Task[]> {
+    async execute(userId: string): Promise<Task[]> {
         try {
-            const task: Task[] = await this.taskRepository.findAll();
+            const task: Task[] = await this.taskRepository.findAll(userId);
             return task;
         } catch (error) {
 

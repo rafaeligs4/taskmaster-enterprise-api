@@ -10,7 +10,11 @@ export class GetAllTaskController {
 
 
     getAllTask = async (request: RequestUser, response: Response) => {
-        const allTask: Task[] = await this.serviceAllTask.execute();
+        if (!request.user.id) {
+            return response.status(401).json({ message: 'Unauthorized' });
+        }
+
+        const allTask: Task[] = await this.serviceAllTask.execute(request.user.id);
         if (allTask.length < 1) response.status(400);
         response.send(allTask).status(201);
     }

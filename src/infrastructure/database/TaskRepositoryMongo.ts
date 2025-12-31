@@ -48,9 +48,9 @@ export class TaskRepositoryMongo implements ITaskRepository, IUpdateTaskReposito
         }
     }
 
-    public async findAll(): Promise<Task[]> {
+    public async findAll(userId: string): Promise<Task[]> {
         try {
-            const taskDocs = await TaskModel.find().lean();
+            const taskDocs = await TaskModel.find({ userId: userId }).lean();
             console.log(taskDocs, "Task Docs");
             return taskDocs.map(doc => new Task(
                 doc._id as string,
