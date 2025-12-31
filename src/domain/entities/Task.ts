@@ -4,17 +4,19 @@ export class Task {
   title: string = '';
   description: string = '';
   statusTask: number = 0;
-
+  userId: string = '';
   constructor(
-     id: string,
-     title: string,
-     description: string,
-     statusTask: number = 0
+    id: string,
+    title: string,
+    description: string,
+    statusTask: number = 0,
+    userId: string
   ) {
 
     this.id = id;
     this.title = title;
     this.description = description;
     this.statusTask = statusTask;
+    this.userId = userId;
   }
 }

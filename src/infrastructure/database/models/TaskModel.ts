@@ -6,13 +6,15 @@ export interface ITaskDocument extends Omit<Document, '_id'> {
     title: string;
     description: string;
     statusTask: number;
+    userId: string;
 }
 
 const TaskSchema: Schema = new Schema({
     _id: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
-    statusTask: { type: Number, default: 0 }
+    statusTask: { type: Number, default: 0 },
+    userId: { type: String, required: true }
 });
 
 export const TaskModel = mongoose.model<ITaskDocument>('Task', TaskSchema);

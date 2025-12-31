@@ -38,7 +38,8 @@ export class TaskRepositoryMongo implements ITaskRepository, IUpdateTaskReposito
                 taskDoc._id as string,
                 taskDoc.title,
                 taskDoc.description,
-                taskDoc.statusTask
+                taskDoc.statusTask,
+                taskDoc.userId
             );
         } catch (error) {
             console.error("Error al buscar por ID:", error);
@@ -54,7 +55,8 @@ export class TaskRepositoryMongo implements ITaskRepository, IUpdateTaskReposito
                 doc._id as string,
                 doc.title,
                 doc.description,
-                doc.statusTask
+                doc.statusTask,
+                doc.userId
             ));
         } catch (error) {
             console.error("Error al buscar todas las tareas:", error);

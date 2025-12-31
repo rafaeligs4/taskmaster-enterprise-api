@@ -12,12 +12,12 @@ export class CreateTaskController {
     console.log('Body:', req.body);
 
     const body = req.body;
-    if (!body || typeof body.title !== 'string' || body.title.trim() === '') {
+    if (!body || typeof body.title !== 'string' || body.title.trim() === '' || typeof body.description !== 'string' || body.description.trim() === '' || typeof body.userId !== 'string' || body.userId.trim() === '') {
       return res.status(400).json({ message: 'Title is required' });
     }
 
     try {
-      const task = await this.serviceCreateTask.execute(body.title, body.description);
+      const task = await this.serviceCreateTask.execute(body.title, body.description, body.userId);
       return res.status(201).json(task);
     } catch (err: any) {
       console.error(err);
