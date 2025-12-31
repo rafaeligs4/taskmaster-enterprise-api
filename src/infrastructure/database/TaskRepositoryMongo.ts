@@ -17,7 +17,8 @@ export class TaskRepositoryMongo implements ITaskRepository, IUpdateTaskReposito
                 _id: task.id,
                 title: task.title,
                 description: task.description,
-                statusTask: task.statusTask
+                statusTask: task.statusTask,
+                userId: task.userId
             });
 
             await newTask.save();
