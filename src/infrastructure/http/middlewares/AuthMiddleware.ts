@@ -13,6 +13,9 @@ export class AuthMiddleware {
             return res.status(401).json({ message: 'No token provided' });
         }
         const dataToken: { id: string; iat: number; exp: number } = this.jwtValidator.verifyToken(token);
+        if (!dataToken) {
+            return res.status(401).json({ message: 'Invalid token' });
+        }
         console.log(dataToken.id, "USER");
         req.user = dataToken;
         if (!dataToken) {
