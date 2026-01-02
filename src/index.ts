@@ -6,6 +6,7 @@ import * as routerUpdate from "./infrastructure/http/routers/updateTask.router";
 import * as routerCreateUser from "./infrastructure/http/routers/registerUser.router"
 import * as routerLoginUser from "./infrastructure/http/routers/loginUser.router";
 import express, { Express, Request, Response } from 'express';
+import { ErrorHandler } from "./infrastructure/http/middlewares/ErrorHandler";
 
 // Inicializa la aplicación Express
 const app: Express = express();
@@ -24,6 +25,9 @@ app.use('/task', routerUpdate.router);
 /** Users */
 app.use('/users/create', routerCreateUser.router);
 app.use('/users/login', routerLoginUser.router);
+
+app.use(ErrorHandler);
+
 // Define el puerto en el que el servidor escuchará
 // Se recomienda usar una variable de entorno para el puerto
 const port: number | string = process.env.PORT || 3000;
