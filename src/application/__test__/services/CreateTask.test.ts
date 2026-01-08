@@ -1,10 +1,10 @@
-import { CreateTask } from "../../services/CreateTask";
+import { CreateTask } from "../../services/Tasks/CreateTask";
 import { ITaskRepository } from "../../../domain/interfaces/ITaskRepository";
 import { Task } from "../../../domain/entities/Task";
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 
 describe("CreateTask Use Case", () => {
-    
+
     // 1. PREPARAR EL MOCK (ARRANGE)
     // Creamos un objeto falso que finge ser un ITaskRepository.
     // jest.fn() es una función espía: no hace nada, pero recuerda si fue llamada.
@@ -23,15 +23,15 @@ describe("CreateTask Use Case", () => {
         // 2. INSTANCIAR EL SERVICIO (ARRANGE)
         // Le inyectamos nuestro repositorio falso.
         const createTaskService = new CreateTask(mockTaskRepository);
-        
+
         const title = "Aprender SOLID";
         const description = "Estudiar el principio de Inversión de Dependencias";
 
         // 3. EJECUTAR (ACT)
-        const task = await createTaskService.excecute(title, description);
+        const task = await createTaskService.execute(title, description, "1");
 
         // 4. VERIFICAR (ASSERT)
-        
+
         // Verificamos que la tarea devuelta sea correcta
         expect(task.title).toBe(title);
         expect(task.description).toBe(description);
@@ -40,7 +40,7 @@ describe("CreateTask Use Case", () => {
         // LA MAGIA DEL MOCK:
         // Verificamos que el método .save() del repositorio FUE LLAMADO.
         expect(mockTaskRepository.save).toHaveBeenCalledTimes(1);
-        
+
         // Verificamos que fue llamado CON la tarea correcta.
         expect(mockTaskRepository.save).toHaveBeenCalledWith(task);
     });
@@ -49,6 +49,6 @@ describe("CreateTask Use Case", () => {
         const createTaskService = new CreateTask(mockTaskRepository);
 
         // Verificamos que lance error si no enviamos título
-        await expect(createTaskService.excecute("", "desc")).rejects.toThrow("Title is required");
+        await expect(createTaskService.execute("", "desc", "1")).rejects.toThrow("Title is required");
     });
 });
