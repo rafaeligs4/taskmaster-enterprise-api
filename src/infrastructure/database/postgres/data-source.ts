@@ -5,6 +5,7 @@ dotenv.config();
 
 export const AppDataSource = new DataSource({
     type: "postgres",
+    url: process.env.POSTGRES_URL || "",
     host: process.env.POSTGRES_HOST || "localhost", // Si corres la app local, usa localhost. Si es docker, usa 'postgres'
     port: 5432,
     username: process.env.POSTGRES_USER || "admin",      // Debe coincidir con docker-compose
@@ -18,4 +19,6 @@ export const AppDataSource = new DataSource({
     ],
     subscribers: [],
     migrations: [],
+    // 👇 ESTO ES CRÍTICO PARA RENDER/AWS
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
 });
