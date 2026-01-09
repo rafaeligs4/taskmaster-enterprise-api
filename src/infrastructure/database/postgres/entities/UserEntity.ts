@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
+import { TaskEntity } from "./TaskEntity";
 
 
-@Entity()
+@Entity({ name: "users" })
 export class UserEntity {
     @PrimaryColumn()
     id: string;
@@ -14,4 +15,9 @@ export class UserEntity {
 
     @Column({ length: 256 })
     password: string;
+
+    // Un usuario tiene muchas tareas
+    @OneToMany(() => TaskEntity, (task) => task.user)
+    tasks: TaskEntity[];
+
 }
