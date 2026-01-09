@@ -3,7 +3,11 @@ import { ZodObject } from "zod";
 
 export const validate = (schema: ZodObject<any>) => {
     return (req: Request, res: Response, next: NextFunction) => {
-        const validation = schema.safeParse(req.body);
+        const validation = schema.safeParse({
+            body: req.body,
+            query: req.query,
+            params: req.params
+        });
         if (!validation.success) {
             const formattedErrors = validation.error.issues.map((error) => ({
                 field: error.path.join('.'),

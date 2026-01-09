@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import "dotenv/config";
 import * as routerCreate from "./infrastructure/http/routers/createTask.router";
 import * as routerGetAll from "./infrastructure/http/routers/getAllTasks.router";
@@ -7,6 +8,7 @@ import * as routerCreateUser from "./infrastructure/http/routers/registerUser.ro
 import * as routerLoginUser from "./infrastructure/http/routers/loginUser.router";
 import express, { Express, Request, Response } from 'express';
 import { ErrorHandler } from "./infrastructure/http/middlewares/ErrorHandler";
+import { AppDataSource } from "./infrastructure/database/postgres/data-source";
 
 // Inicializa la aplicación Express
 const app: Express = express();
@@ -32,7 +34,19 @@ app.use(ErrorHandler);
 // Se recomienda usar una variable de entorno para el puerto
 const port: number | string = process.env.PORT || 3000;
 
-// Inicia el servidor
-app.listen(port, () => {
-  console.log(`Servidor Express escuchando en el puerto ${port}`);
-});
+// metodo async para iniciar la app
+async function initApp() {
+  try {
+    await AppDataSource.initialize();
+    // Inicia el servidor
+    app.listen(port, () => {
+      console.log(`Servidor Express escuchando en el puerto ${port}`);
+    });
+    console.log("Base de datos inicializada 🐘");
+  } catch (error) {
+    console.error("Error al inicializar la base de datos:", error);
+  }
+}
+
+
+initApp();

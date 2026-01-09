@@ -17,6 +17,8 @@ import { LoginUserController } from "./http/controllers/LoginUser.controller";
 import { RegisterUserController } from "./http/controllers/registerUser.controller";
 import { UpdateTaskController } from "./http/controllers/updateTask.controller";
 import { AuthMiddleware } from "./http/middlewares/AuthMiddleware";
+import { TaskRepositoryPostgres } from "./repositories/TaskRepositoryPostgres";
+import { UserRepositoryPostgres } from "./repositories/UserRepositoryPostgres";
 
 /**
  * DEPENDENCIES
@@ -27,8 +29,12 @@ import { AuthMiddleware } from "./http/middlewares/AuthMiddleware";
 const connectionMongo = new MongoDBConnection();
 connectionMongo.connect();
 // Aqui podemos cambiar la implementacion del repositorio si es necesario
-const taskRepository = new TaskRepositoryMongo();
-const userRepository = new UserRepositoryMongo();
+// MONGO
+// const userRepository = new UserRepositoryMongo();
+// const taskRepository = new TaskRepositoryMongo();
+// POSTGRES
+const userRepository = new UserRepositoryPostgres();
+const taskRepository = new TaskRepositoryPostgres();
 const passwordHasher = new BcryptPasswordHasher();
 const jwtProvider = new JwtTokenProvider();
 //
