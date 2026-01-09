@@ -1,0 +1,34 @@
+name: CI Pipeline 
+
+# 1. ¿Cuándo se activa?
+on:
+  push:
+    branches: [ master ] # Cuando se hace merge a master
+  pull_request:
+    branches: [ master ] # Cuando alguien abre un PR hacia master
+
+# 2. ¿Qué hace?
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest # GitHub nos presta una máquina Linux gratis
+
+    steps:
+    # A. Descarga tu código
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # B. Instala Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18s'
+        cache: 'npm'
+
+    # C. Instala dependencias
+    - name: Install Dependencies
+      run: npm install
+
+    # D. Intenta compilar (TypeScript -> JS)
+    # Si hay un error de tipos, esto fallará y bloqueará el PR 🛑
+    - name: Build Project
+      run: npm run builda
