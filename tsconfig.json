@@ -34,12 +34,15 @@
 
     // Recommended Options
     "strict": true,
+    "strictPropertyInitialization": false,
     "jsx": "react-jsx",
     "verbatimModuleSyntax": false,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   
   }
 }
