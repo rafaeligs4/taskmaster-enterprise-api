@@ -15,7 +15,7 @@ export const AppDataSource = new DataSource({
     logging: false,
     entities: [
         // Aquí pondremos nuestras entidades (tablas) luego
-        "src/infrastructure/database/postgres/entities/**/*.ts"
+        `${__dirname}/entities/**/*.ts`
     ],
     subscribers: [],
     migrations: [],
