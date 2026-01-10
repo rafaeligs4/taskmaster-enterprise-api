@@ -9,7 +9,8 @@ import * as routerLoginUser from "./infrastructure/http/routers/loginUser.router
 import express, { Express, Request, Response } from 'express';
 import { ErrorHandler } from "./infrastructure/http/middlewares/ErrorHandler";
 import { AppDataSource } from "./infrastructure/database/postgres/data-source";
-
+import { swaggerSpec } from "./infrastructure/http/swagger/swagger.config";
+import swaggerUi from 'swagger-ui-express';
 // Inicializa la aplicación Express
 const app: Express = express();
 
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Montar routers (debe ir después de los parsers)
 
+// Ruta de documentación
+
 /** Tasks*/
 app.use('/task', routerCreate.router);
 app.use('/task/getAll', routerGetAll.router);
@@ -27,12 +30,12 @@ app.use('/task', routerUpdate.router);
 /** Users */
 app.use('/users/create', routerCreateUser.router);
 app.use('/users/login', routerLoginUser.router);
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(ErrorHandler);
 
 // Define el puerto en el que el servidor escuchará
 // Se recomienda usar una variable de entorno para el puerto
-const port: number | string = process.env.PORT || 3000;
+const port: number | string = 3000; // Forzamos 3050 para evitar conflicto con puerto 3000 zombie
 
 // metodo async para iniciar la app
 async function initApp() {
