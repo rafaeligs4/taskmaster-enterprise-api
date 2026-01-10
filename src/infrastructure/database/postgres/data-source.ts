@@ -14,8 +14,8 @@ export const AppDataSource = new DataSource({
     synchronize: true, // ⚠️ TRUE solo en Dev. Crea las tablas automáticamente. En Prod se usa false.
     logging: false,
     entities: [
-        // Aquí pondremos nuestras entidades (tablas) luego
-        `${__dirname}/entities/**/*.ts`
+        // Load entities dynamically based on the execution context (src or dist)
+        `${__dirname}/entities/**/*{.ts,.js}`
     ],
     subscribers: [],
     migrations: [],
