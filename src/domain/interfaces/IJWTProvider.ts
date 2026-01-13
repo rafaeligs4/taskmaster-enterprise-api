@@ -1,10 +1,11 @@
-export interface IJWTProvider {
-    generateToken(payload: any): string;
-    verifyToken(token: string): any;
-}
+// export interface IJWTProvider {
+//     generateToken(payload: any): string;
+//     verifyToken(token: string): any;
+// }
 
 export interface IJWTSigner {
-    generateToken(payload: any): string;
+    generateRefreshToken(payload: string): string;
+    generateAccessToken(payload: string): string;
 }
 
 export interface IJWTValidator {

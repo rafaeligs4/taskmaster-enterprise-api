@@ -5,14 +5,18 @@ import { IJWTSigner, IJWTValidator } from '../../domain/interfaces/IJWTProvider'
 export class JwtTokenProvider implements IJWTSigner, IJWTValidator {
     private readonly SECRET_KEY = process.env.MONGO_URI || "secreto_super_secreto_taskmaster";
 
-    generateToken(payload: object): string {
-        // El token expira en 1 hora
-        return jwt.sign(payload, this.SECRET_KEY, { expiresIn: '1h' });
+    generateRefreshToken(payload: string): string {
+        // El token expira en 7 dias
+        return jwt.sign({ id: payload }, this.SECRET_KEY, { expiresIn: '7d' });
     }
-
-    verifyToken(token: string): object | null {
+    generateAccessToken(payload: string): string {
+        // El token expira en 15 minutos
+        return jwt.sign({ id: payload }, this.SECRET_KEY, { expiresIn: '15min' });
+    }
+    verifyToken(token: string): string | null {
         try {
-            return jwt.verify(token, this.SECRET_KEY) as object;
+            const decoded = jwt.verify(token, this.SECRET_KEY) as { id: string };
+            return decoded.id;
         } catch (error) {
             return null; // Token inválido o expirado
         }

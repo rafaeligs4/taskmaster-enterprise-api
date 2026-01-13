@@ -1,6 +1,7 @@
 import { User } from "../../domain/entities/User";
 import { IUserRepository } from "../../domain/interfaces/IUserRepository";
 import { AppDataSource } from "../database/postgres/data-source";
+import { RefreshTokenEntity } from "../database/postgres/entities/refreshTokenEntity";
 import { UserEntity } from "../database/postgres/entities/UserEntity";
 
 
@@ -8,7 +9,7 @@ export class UserRepositoryPostgres implements IUserRepository {
 
     // Obtenemos el repositorio interno de TypeORM
     private repository = AppDataSource.getRepository(UserEntity);
-
+    private refreshTokenRepo = AppDataSource.getRepository(RefreshTokenEntity);
     async save(user: User): Promise<void> {
         // 1. Convertir Dominio -> Entidad de Base de Datos
         const userEntity = this.repository.create({
@@ -48,5 +49,22 @@ export class UserRepositoryPostgres implements IUserRepository {
             userEntity.email,
             userEntity.password
         );
+    }
+    async saveRefreshToken(userId: string, refreshToken: string): Promise<void> {
+        // 1. Convertir Dominio -> Entidad de Base de Datos
+        const refreshTokenEntity = this.refreshTokenRepo.create({
+            token: refreshToken,
+            userId: userId,
+            revoked: false
+        });
+
+        // 2. Guardar en Postgres
+        await this.refreshTokenRepo.save(refreshTokenEntity);
+    }
+
+    async findRefreshToken(token: string): Promise<RefreshTokenEntity | null> {
+        const refreshTokenEntity = await this.refreshTokenRepo.findOne({ where: { token } });
+        if (!refreshTokenEntity) return null;
+        return refreshTokenEntity;
     }
 }

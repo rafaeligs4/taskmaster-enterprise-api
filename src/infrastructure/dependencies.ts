@@ -1,5 +1,6 @@
 import { BcryptPasswordHasher } from "../application/services/HashPasswors";
 import { JwtTokenProvider } from "../application/services/JWTProvider";
+import { RefreshTokenService } from "../application/services/RefreshTokenService";
 import { CreateTask } from "../application/services/Tasks/CreateTask";
 import { FindTask } from "../application/services/Tasks/FindTask";
 import { GetAllTask } from "../application/services/Tasks/GetAllTask";
@@ -14,6 +15,7 @@ import { CreateTaskController } from './http/controllers/createTask.controller';
 import { FindTaskController } from "./http/controllers/findTask.controller";
 import { GetAllTaskController } from "./http/controllers/getAllTask.controller";
 import { LoginUserController } from "./http/controllers/LoginUser.controller";
+import { RefreshTokenController } from "./http/controllers/RefreshToken.controller";
 import { RegisterUserController } from "./http/controllers/registerUser.controller";
 import { UpdateTaskController } from "./http/controllers/updateTask.controller";
 import { AuthMiddleware } from "./http/middlewares/AuthMiddleware";
@@ -55,6 +57,7 @@ const findTaskById = new FindTask(taskRepository);
 const updateTask = new UpdateStatusTask(taskRepository);
 const registerUser = new RegisterUser(userRepository, passwordHasher);
 const loginUser = new LoginUser(userRepository, passwordHasher, jwtProvider);
+const refreshToken = new RefreshTokenService(userRepository, jwtProvider, jwtProvider);
 /*
 CONTROLADORES 
 */
@@ -64,3 +67,4 @@ export const findByIdController = new FindTaskController(findTaskById);
 export const updateTaskCont = new UpdateTaskController(updateTask);
 export const registerUserCont = new RegisterUserController(registerUser);
 export const loginUserCont = new LoginUserController(loginUser);
+export const refreshTokenCont = new RefreshTokenController(refreshToken);

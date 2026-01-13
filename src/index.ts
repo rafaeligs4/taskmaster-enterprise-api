@@ -6,6 +6,7 @@ import * as routerFindId from "./infrastructure/http/routers/findTask.router";
 import * as routerUpdate from "./infrastructure/http/routers/updateTask.router";
 import * as routerCreateUser from "./infrastructure/http/routers/registerUser.router"
 import * as routerLoginUser from "./infrastructure/http/routers/loginUser.router";
+import * as routerRefreshToken from "./infrastructure/http/routers/auth.router"
 import express, { Express, Request, Response } from 'express';
 import { ErrorHandler } from "./infrastructure/http/middlewares/ErrorHandler";
 import { AppDataSource } from "./infrastructure/database/postgres/data-source";
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Montar routers (debe ir después de los parsers)
 
+/* AUTH  */
+app.use('/', routerRefreshToken.router);
 /** Tasks*/
 app.use('/task', routerCreate.router);
 app.use('/task/getAll', routerGetAll.router);

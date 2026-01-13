@@ -20,11 +20,16 @@ export class LoginUser {
         if (!isPasswordValid) {
             throw new AppError("Invalid password", 401);
         }
-        const token = await this.jwtProvider.generateToken({ id: user.id });
+        const token = await this.jwtProvider.generateAccessToken(user.id);
+
+        const refreshToken = await this.jwtProvider.generateRefreshToken(user.id);
+
+        await this.userRepository.saveRefreshToken(user.id, refreshToken);
         return {
             name: user.name,
             email: user.email,
-            token
+            token,
+            refreshToken
         };
     }
 }
