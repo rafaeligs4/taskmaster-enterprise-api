@@ -13,10 +13,10 @@ export class JwtTokenProvider implements IJWTSigner, IJWTValidator {
         // El token expira en 15 minutos
         return jwt.sign({ id: payload }, this.SECRET_KEY, { expiresIn: '15min' });
     }
-    verifyToken(token: string): string | null {
+    verifyToken(token: string): { id: string, iat: number, exp: number } | null {
         try {
-            const decoded = jwt.verify(token, this.SECRET_KEY) as { id: string };
-            return decoded.id;
+            const decoded = jwt.verify(token, this.SECRET_KEY) as { id: string, iat: number, exp: number };
+            return decoded;
         } catch (error) {
             return null; // Token inválido o expirado
         }

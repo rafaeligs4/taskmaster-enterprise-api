@@ -12,15 +12,14 @@ export class AuthMiddleware {
         if (!token) {
             return res.status(401).json({ message: 'No token provided' });
         }
-        const dataToken: { id: string; iat: number; exp: number } = this.jwtValidator.verifyToken(token);
+        const dataToken: { id: string, iat: number, exp: number } = this.jwtValidator.verifyToken(token);
         if (!dataToken) {
             return res.status(401).json({ message: 'Invalid token' });
         }
-        console.log(dataToken.id, "USER");
+        console.log(dataToken, "USER");
         req.user = dataToken;
-        if (!dataToken) {
-            return res.status(401).json({ message: 'Invalid token' });
-        }
+        console.log(req.user.id, "USER");
+
         next();
     }
 }

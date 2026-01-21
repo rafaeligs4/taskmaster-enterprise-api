@@ -22,10 +22,12 @@ export class TaskRepositoryPostgres implements ITaskRepository, IUpdateTaskRepos
         await this.repository.save(taskEntity);
     }
 
-    async findAll(userId: string): Promise<Task[]> {
+    async findAll(userId: string, limit?: number, offset?: number, completed?: boolean): Promise<Task[]> {
         // Query: SELECT * FROM tasks WHERE userId = '...'
         const taskEntities = await this.repository.find({
-            where: { userId: userId }
+            where: { userId: userId },
+            take: limit || 10,
+            skip: offset || 0
         });
 
         // Mapeo: SQL Entities -> Dominio Task[]
