@@ -19,6 +19,7 @@ import { RefreshTokenController } from "./http/controllers/RefreshToken.controll
 import { RegisterUserController } from "./http/controllers/registerUser.controller";
 import { UpdateTaskController } from "./http/controllers/updateTask.controller";
 import { AuthMiddleware } from "./http/middlewares/AuthMiddleware";
+import { RabbitMQProvider } from "./providers/rabbitMQ.provider";
 import { TaskRepositoryPostgres } from "./repositories/TaskRepositoryPostgres";
 import { UserRepositoryPostgres } from "./repositories/UserRepositoryPostgres";
 
@@ -50,12 +51,12 @@ export const authMiddleware = new AuthMiddleware(jwtProvider);
 /*
 SERVICIOS 
 */
-
+const notificationService = new RabbitMQProvider();
 const createTaskRef = new CreateTask(taskRepository);
 const getAllTask = new GetAllTask(taskRepository);
 const findTaskById = new FindTask(taskRepository);
 const updateTask = new UpdateStatusTask(taskRepository);
-const registerUser = new RegisterUser(userRepository, passwordHasher);
+const registerUser = new RegisterUser(userRepository, passwordHasher, notificationService);
 const loginUser = new LoginUser(userRepository, passwordHasher, jwtProvider);
 const refreshToken = new RefreshTokenService(userRepository, jwtProvider, jwtProvider);
 /*

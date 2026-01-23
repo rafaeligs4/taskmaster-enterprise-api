@@ -30,4 +30,10 @@ export class UserRepositoryMongo implements IUserRepository {
         const userFinded = UserModel.findById(id);
         return userFinded;
     }
+    findRefreshToken(token: string): Promise<object | null> {
+        return UserModel.findOne({ refreshToken: token });
+    }
+    async saveRefreshToken(userId: string, refreshToken: string): Promise<void> {
+        await UserModel.updateOne({ _id: userId }, { refreshToken });
+    }
 }
