@@ -1,5 +1,6 @@
 import { Task } from "../../../domain/entities/Task";
 import { ITaskRepository } from "../../../domain/interfaces/ITaskRepository";
+import { v4 as uuidv4 } from "uuid";
 
 export class CreateTask {
     constructor(private taskRepository: ITaskRepository) {
@@ -11,7 +12,7 @@ export class CreateTask {
             throw new Error('Title is required');
         }
 
-        const task = new Task(Date.now().toString(), title, description, '0', idUser);
+        const task = new Task(uuidv4(), title, description, '0', idUser);
 
         await this.taskRepository.save(task);
 
