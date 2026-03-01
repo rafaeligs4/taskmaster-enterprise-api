@@ -11,7 +11,7 @@ export class CreateTask {
             throw new Error('Title is required');
         }
 
-        const task = new Task(Date.now().toString(), title, description, 0, idUser);
+        const task = new Task(Date.now().toString(), title, description, '0', idUser);
 
         await this.taskRepository.save(task);
 

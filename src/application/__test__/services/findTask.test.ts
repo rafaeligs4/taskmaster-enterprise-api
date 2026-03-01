@@ -20,7 +20,7 @@ describe("GetAllTask Use Case", () => {
   });
 
   it("returns a Task when the repository finds it", async () => {
-    const task = new Task("1", "Title", "Desc", 0, "1");
+    const task = new Task("1", "Title", "Desc", "0", "1");
     mockTaskRepository.findById.mockResolvedValue(task);
 
     const findTaskService = new FindTask(mockTaskRepository);

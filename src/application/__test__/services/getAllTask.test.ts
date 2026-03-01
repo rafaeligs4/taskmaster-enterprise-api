@@ -21,8 +21,8 @@ describe("GetAllTask Use Case", () => {
 
   it("should return an array of tasks", async () => {
     // 1) Preparar datos de prueba
-    const task1 = new Task("1", "Aprender SOLID", "Estudiar el principio de Inversión de Dependencias", 0, "1");
-    const task2 = new Task("2", "Práctica TDD", "Escribir tests para servicios", 0, "2");
+    const task1 = new Task("1", "Aprender SOLID", "Estudiar el principio de Inversión de Dependencias", "0", "1");
+    const task2 = new Task("2", "Práctica TDD", "Escribir tests para servicios", "0", "2");
     // configuramos el mock para que devuelva el array esperado
     mockTaskRepository.findAll.mockResolvedValue([task1, task2]);
 

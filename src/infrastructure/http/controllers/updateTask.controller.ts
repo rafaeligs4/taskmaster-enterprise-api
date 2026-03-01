@@ -11,7 +11,7 @@ export class UpdateTaskController {
         const { id } = req.params;
         if (!id) return res.status(500).json({ "message": "No hay ID" });
 
-        const response = await this.serviceUpdateTask.execute(id, 1);
+        const response = await this.serviceUpdateTask.execute(id, '1');
         res.status(201).json({ "message": "SUCCESS UPDATE" });
     }
 }

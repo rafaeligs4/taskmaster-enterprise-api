@@ -4,23 +4,23 @@ import { UserEntity } from "./UserEntity";
 @Entity({ name: "tasks" }) // Nombre de la tabla en SQL
 export class TaskEntity {
 
-    @PrimaryColumn("varchar") // Usamos varchar porque guardamos IDs generados manualmente (strings)
+    @PrimaryColumn({ type: "uuid" })
     id: string;
 
-    @Column("varchar")
+    @Column({ type: "varchar", length: 255 })
     title: string;
 
-    @Column("text") // 'text' permite strings más largos que 'varchar'
+    @Column({ type: "text", nullable: true })
     description: string;
 
-    @Column("int", { default: 0 })
-    statusTask: number;
+    @Column({ name: "statusTask", type: "varchar", length: 255 })
+    statusTask: string;
 
-    @Column("varchar")
-    userId: string; // Por ahora lo dejamos como string simple (luego haremos la relación real)
+    @Column({ name: "userId", type: "varchar", length: 255 })
+    userId: string;
 
     // Relación ManyToOne: Muchas tareas pertenecen a un usuario
-    @ManyToOne(() => UserEntity, (user) => user.tasks)
+    @ManyToOne(() => UserEntity, (user) => user.tasks, { onDelete: "CASCADE" })
     @JoinColumn({ name: "userId" }) // Importante: Esto le dice a TypeORM que use la columna 'userId' de arriba para esta relación
     user: UserEntity;
 }

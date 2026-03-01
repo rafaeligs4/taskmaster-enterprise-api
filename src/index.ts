@@ -12,8 +12,15 @@ import { ErrorHandler } from "./infrastructure/http/middlewares/ErrorHandler";
 import { AppDataSource } from "./infrastructure/database/postgres/data-source";
 import { swaggerSpec } from "./infrastructure/http/swagger/swagger.config";
 import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 // Inicializa la aplicación Express
 const app: Express = express();
+
+// Esto permite que el puerto 5173 (React) le hable al 3000
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 
 // Agregar parsers para leer body JSON y form-urlencoded
 app.use(express.json());

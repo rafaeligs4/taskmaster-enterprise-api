@@ -50,7 +50,7 @@ export class TaskRepositoryPostgres implements ITaskRepository, IUpdateTaskRepos
             taskEntity.userId
         );
     }
-    async updateStatusTask(id: string, status: number): Promise<number> {
+    async updateStatusTask(id: string, status: string): Promise<number> {
         const taskEntity = await this.repository.create({
             id: id,
             statusTask: status

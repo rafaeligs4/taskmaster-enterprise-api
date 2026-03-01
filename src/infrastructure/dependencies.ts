@@ -29,8 +29,8 @@ import { UserRepositoryPostgres } from "./repositories/UserRepositoryPostgres";
  */
 
 // const taskRepository = new TaskRepositoryInMemory();
-const connectionMongo = new MongoDBConnection();
-connectionMongo.connect();
+// const connectionMongo = new MongoDBConnection();
+// connectionMongo.connect();
 // Aqui podemos cambiar la implementacion del repositorio si es necesario
 // MONGO
 // const userRepository = new UserRepositoryMongo();

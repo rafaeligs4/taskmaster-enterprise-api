@@ -12,7 +12,7 @@ export class GetAllTask {
             const task: Task[] = await this.taskRepository.findAll(userId, limit, offset, completed);
             return task;
         } catch (error) {
-
+            console.error("Error al obtener las tareas:", error);
             return [];
         }
 

@@ -15,7 +15,7 @@ export class TaskRepositoryInMemory implements ITaskRepository, IUpdateTaskRepos
         const task = this.tasks.find(t => t.id === id);
         return task || null;
     }
-    async updateStatusTask(id: string, status: number): Promise<number> {
+    async updateStatusTask(id: string, status: string): Promise<number> {
         const task = this.tasks.find(t => t.id === id);
         if (!task) return 0;
         task.statusTask = status;

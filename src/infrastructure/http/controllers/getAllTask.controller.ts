@@ -15,14 +15,14 @@ export class GetAllTaskController {
         }
 
         // Si no envían nada, usamos valores por defecto (Página 1, 10 items)
-        const page = parseInt(request.query.page as string) || 1;
-        const limit = parseInt(request.query.limit as string) || 10;
+        const page = Number(request.query.page) || 0;
+        const limit = Number(request.query.limit) || 10;
 
         // Opcional: Filtro por estado
         // (En la URL sería: ?completed=true)
         const completedFilter = request.query.completed;
         const allTask: Task[] = await this.serviceAllTask.execute(request.user.id, Number(limit), Number(page), Boolean(completedFilter));
         if (allTask.length < 1) response.status(400);
-        response.send(allTask).status(201);
+        response.send({ data: allTask }).status(201);
     }
 }

@@ -15,15 +15,15 @@ export class RabbitMQProvider implements INotificationService {
 
     async connect() {
         try {
-            const url = process.env.RABBITMQ_URL || 'amqp://user:password@localhost:5672';
-            // Conectamos al RabbitMQ local (usuario/pass del docker-compose)
-            this.connection = await amqp.connect(url);
-            this.channel = await this.connection.createChannel();
+            // const url = process.env.RABBITMQ_URL || 'amqp://user:password@localhost:5672';
+            // // Conectamos al RabbitMQ local (usuario/pass del docker-compose)
+            // this.connection = await amqp.connect(url);
+            // this.channel = await this.connection.createChannel();
 
-            // Aseguramos que la cola exista (Idempotencia)
-            await this.channel.assertQueue(this.QUEUE_NAME, {
-                durable: true
-            });
+            // // Aseguramos que la cola exista (Idempotencia)
+            // await this.channel.assertQueue(this.QUEUE_NAME, {
+            //     durable: true
+            // });
 
             console.log('🐰 Conectado a RabbitMQ exitosamente');
         } catch (error) {

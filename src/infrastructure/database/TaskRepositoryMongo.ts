@@ -39,7 +39,7 @@ export class TaskRepositoryMongo implements ITaskRepository, IUpdateTaskReposito
                 taskDoc._id as string,
                 taskDoc.title,
                 taskDoc.description,
-                taskDoc.statusTask,
+                taskDoc.statusTask.toString(),
                 taskDoc.userId
             );
         } catch (error) {
@@ -56,7 +56,7 @@ export class TaskRepositoryMongo implements ITaskRepository, IUpdateTaskReposito
                 doc._id as string,
                 doc.title,
                 doc.description,
-                doc.statusTask,
+                doc.statusTask.toString(),
                 doc.userId
             ));
         } catch (error) {
@@ -65,7 +65,7 @@ export class TaskRepositoryMongo implements ITaskRepository, IUpdateTaskReposito
         }
     }
 
-    async updateStatusTask(id: string, status: number): Promise<number> {
+    async updateStatusTask(id: string, status: string): Promise<number> {
         try {
             const result = await TaskModel.updateOne({ _id: id }, { statusTask: status });
             return result.modifiedCount > 0 ? 1 : 0;

@@ -1,5 +1,5 @@
 
 
 export interface IUpdateTaskRepository {
-    updateStatusTask(id: string, status: number): Promise<number>;
+    updateStatusTask(id: string, status: string): Promise<number>;
 }

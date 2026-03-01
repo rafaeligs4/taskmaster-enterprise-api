@@ -3,13 +3,13 @@ export class Task {
   id: string = '';
   title: string = '';
   description: string = '';
-  statusTask: number = 0;
+  statusTask: string = '0';
   userId: string = '';
   constructor(
     id: string,
     title: string,
     description: string,
-    statusTask: number = 0,
+    statusTask: string = '0',
     userId: string
   ) {
 
